@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/mvc
+         https://www.springframework.org/schema/mvc/spring-mvc.xsd
+         http://www.springframework.org/schema/context
+          https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.xzj.controller"/>
+
+    <!--设置视图文件的地址，方便程序员在MyController类当中设置视图信息等-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--拦截所有类-->
+            <mvc:mapping path="/**"/>
+            <bean class="com.xzj.handle.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <!--注解驱动，把对象转为json，把装对象的集合转为json类型的数组-->
+   <mvc:annotation-driven/>
+
+    <!--
+      当选择文件交给哪个DispatcherServlet来管理的方式是/时，处理静态资源的方式;
+      配置这个的也必须配置<mvc:annotation-driven/>，避免冲突，不能访问动态资源文件的问题
+    <mvc:default-servlet-handler/>
+    -->
+
+    <!--
+    第二种处理方式
+    在webapp下的根路径
+    静态资源文件包括图片，html,js文件。。
+    可以配置多个这样的配置文件
+    配置这个的也必须配置<mvc:annotation-driven/>，避免冲突，不能访问动态资源文件的问题
+          -->
+    <mvc:resources mapping="/static/**" location="/static/"/>
+</beans>

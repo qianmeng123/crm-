@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--输出日志-->
+    <!--<settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>-->
+
+    <!--实体类所在的包-->
+     <typeAliases>
+    <package name="com.xzj.domain"/>
+     </typeAliases>
+
+    <!--mapper文件所在的包，可以一次性把mapper文件全部扫进来
+         mapper文件和接口名必须完全一样！！！！！！！
+    -->
+    <mappers>
+        <package name="com.xzj.dao"/>
+    </mappers>
+
+</configuration>
