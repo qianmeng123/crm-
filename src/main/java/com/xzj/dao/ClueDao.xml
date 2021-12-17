@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xzj.dao.ClueDao">
+
+    <delete id="delete">
+        delete from tbl_clue
+        where id=#{clueId}
+    </delete>
+
+      <select id="getById" resultType="com.xzj.domain.Clue">
+            select
+                    id,
+                    fullname,
+                    appellation,
+                    owner,
+                    company,
+                    job,
+                    email,
+                    phone,
+                    website,
+                    mphone,
+                    state,
+                    source,
+                    createBy,
+                    createTime,
+                    editBy,
+                    editTime,
+                    description,
+                    contactSummary,
+                    nextContactTime,
+                    address
+                    from tbl_clue
+                    where id=#{clueId}
+
+      </select>
+
+
+       <select id="getActivityConventModel" resultType="com.xzj.domain.Activity">
+
+             select
+              a.id,
+              u.name owner,
+              a.name,
+              a.startDate,
+              a.endDate
+             from tbl_activity a
+             join tbl_user u
+             on a.owner=u.id
+             where a.name like '%' #{name} '%'
+    </select>
+
+
+
+
+
+    <!--关联数据操作-->
+    <insert id="addActivityAndClueRemark">
+        insert into tbl_clue_activity_relation(
+        id,
+        clueId,
+        activityId
+        )
+        values(
+        #{id},
+        #{clueId},
+        #{activityId}
+        )
+    </insert>
+
+
+    <!--模糊查询操作-->
+    <select id="getActivityListText" resultType="com.xzj.domain.Activity">
+
+           select
+              a.id,
+              u.name owner,
+              a.name,
+              a.startDate,
+              a.endDate
+             from tbl_activity a
+             join tbl_user u
+             on a.owner=u.id
+             where a.name like '%' #{textActivity} '%' and  a.id not in
+             (select activityId
+             from tbl_clue_activity_relation
+             where clueId=#{clueId}
+             )
+    </select>
+
+
+
+    <!--打开模态窗口之前作赋值操作-->
+      <select id="modelActivityClueId" resultType="com.xzj.domain.Activity">
+            select
+              a.id,
+              u.name owner,
+              a.name,
+              a.startDate,
+              a.endDate
+             from tbl_activity a
+             join tbl_user u
+             on a.owner=u.id
+             where a.id not in
+             (select activityId
+             from tbl_clue_activity_relation
+              where clueId=#{clueId}
+             )
+      </select>
+
+      <delete id="deleteCar">
+          delete
+          from
+          tbl_clue_activity_relation
+          where
+          id=#{id}
+      </delete>
+
+     <select id="getActivityList" resultType="com.xzj.domain.Activity">
+          select
+                r.id id,
+                u.name owner,
+                a.name,
+                a.startDate,
+                a.endDate
+                from tbl_activity a
+                join tbl_user u
+                on a.owner=u.id
+                join tbl_clue_activity_relation r
+                on r.activityId=a.id
+                where r.clueId=#{clueId}
+     </select>
+
+
+    <select id="getIdClue" resultType="com.xzj.domain.Clue">
+        select
+            c.id,
+            c.fullname,
+            c.appellation,
+            u.name owner,
+            c.company,
+            c.job,
+            c.email,
+            c.phone,
+            c.website,
+            c.mphone,
+            c.state,
+            c.source,
+            c.createBy,
+            c.createTime,
+            c.editBy,
+            c.editTime,
+            c.description,
+            c.contactSummary,
+            c.nextContactTime,
+            c.address
+            from tbl_clue c
+            join tbl_user u
+            on c.owner=u.id
+            where c.id=#{id}
+    </select>
+
+
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from tbl_clue
+    </select>
+
+
+    <select id="getAllClue" resultType="com.xzj.domain.Clue">
+                    SELECT
+                  c.id,
+                  c.fullname,
+                  c.appellation,
+                  u.name owner,
+                  c.company,
+                  c.job,
+                  c.email,
+                  c.phone,
+                  c.website,
+                  c.mphone,
+                  c.state,
+                  c.source,
+                  c.createBy,
+                  c.createTime,
+                   c.editBy,
+                   c.editTime,
+                   c.description,
+                   c.contactSummary,
+                   c.nextContactTime,
+                    c.address
+                     from tbl_clue c
+                   join tbl_user u
+                   on u.id=c.owner
+
+
+    </select>
+    <insert id="save">
+       insert into tbl_clue(
+         id,
+        fullname,
+        appellation,
+        owner,
+        company,
+        job,
+        email,
+        phone,
+        website,
+        mphone,
+        state,
+        source,
+        createBy,
+        createTime,
+        description,
+        contactSummary,
+        nextContactTime,
+        address
+       )
+       values(
+       #{id},
+       #{fullname},
+       #{appellation},
+       #{owner},
+       #{company},
+       #{job},
+       #{email},
+       #{phone},
+       #{website},
+       #{mphone},
+       #{state},
+       #{source},
+       #{createBy},
+       #{createTime},
+        #{description},
+        #{contactSummary},
+        #{nextContactTime},
+        #{address}
+       )
+
+    </insert>
+	
+  	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,19 +10,26 @@
          http://www.springframework.org/schema/context
           https://www.springframework.org/schema/context/spring-context.xsd">
 
+
     <context:component-scan base-package="com.xzj.controller"/>
 
+    <context:component-scan base-package="com.xzj.ExceptionHandle"/>
+
     <!--设置视图文件的地址，方便程序员在MyController类当中设置视图信息等-->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
-    </bean>
+    </bean>-->
 
     <!--拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
-            <!--拦截所有类-->
-            <mvc:mapping path="/**"/>
+            <!--匹配路径-->
+            <mvc:mapping path="/settings/**" />
+            <mvc:mapping path="/workbench/**" />
+            <!--不匹配路径-->
+            <mvc:exclude-mapping path="/login.jsp"/>
+            <mvc:exclude-mapping path="/user/loginUser"/>
             <bean class="com.xzj.handle.MyInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
@@ -32,8 +39,8 @@
    <mvc:annotation-driven/>
 
     <!--
-      当选择文件交给哪个DispatcherServlet来管理的方式是/时，处理静态资源的方式;
-      配置这个的也必须配置<mvc:annotation-driven/>，避免冲突，不能访问动态资源文件的问题
+    当选择文件交给哪个DispatcherServlet来管理的方式是/时，处理静态资源的方式;
+    配置这个的也必须配置<mvc:annotation-driven/>，避免冲突，不能访问动态资源文件的问题
     <mvc:default-servlet-handler/>
     -->
 
@@ -44,5 +51,8 @@
     可以配置多个这样的配置文件
     配置这个的也必须配置<mvc:annotation-driven/>，避免冲突，不能访问动态资源文件的问题
           -->
-    <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/jquery/**" location="/jquery/"/>
+    <mvc:resources mapping="/image/**" location="/image/"/>
+    <mvc:resources mapping="/settings/**" location="/settings/"/>
+    <mvc:resources mapping="/workbench/**" location="/workbench/"/>
 </beans>

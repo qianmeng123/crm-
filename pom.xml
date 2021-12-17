@@ -27,12 +27,12 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
+     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <version>4.0.1</version>
       <scope>provided</scope>
-    </dependency>
+     </dependency>
 
     <!-- jsp依赖 -->
     <dependency>
@@ -40,6 +40,12 @@
       <artifactId>jsp-api</artifactId>
       <version>2.2.1-b03</version>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
     </dependency>
 
     <dependency>
@@ -91,6 +97,11 @@
       <artifactId>druid</artifactId>
       <version>1.1.12</version>
     </dependency>
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>5.1.10</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -103,6 +114,7 @@
         </includes>
         <filtering>false</filtering>
       </resource>
+
     </resources>
     <plugins>
       <plugin>
