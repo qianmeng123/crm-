@@ -5,6 +5,59 @@
 
 <mapper namespace="com.xzj.dao.TranDao">
 
+    <select id="getMap" resultType="java.util.Map">
+        select
+        stage name,
+        count(*) value
+        from tbl_tran
+        group by stage;
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from tbl_tran;
+    </select>
+
+    <update id="updateChangeStage">
+        update tbl_tran
+        set stage=#{stage},
+             editBy=#{editBy},
+             editTime=#{editTime}
+             where id=#{id}
+    </update>
+
+    <select id="getAllId" resultType="com.xzj.domain.Tran">
+         select
+           t.id,
+           u.name owner,
+           t.money,
+           t.name,
+           t.expectedDate,
+           cus.name customerId,
+           t.stage,
+           t.type,
+           t.source,
+           act.name activityId,
+           con.fullname contactsId,
+           t.createBy,
+           t.createTime,
+           t.editBy,
+           t.editTime,
+           t.description,
+           t.contactSummary,
+           t.nextContactTime
+            from tbl_tran t
+            join tbl_user u
+            on t.owner=u.id
+            join tbl_customer cus
+            on cus.id=t.customerId
+            left join tbl_activity act
+            on act.id=t.activityId
+            left join tbl_contacts con
+            on con.id=t.contactsId
+            where t.id=#{id}
+
+    </select>
+
     <insert id="save">
         insert into tbl_tran(
         id,

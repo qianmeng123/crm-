@@ -18,7 +18,7 @@ public class EncodingFilter implements Filter {
           String path=request.getServletPath();
         System.out.println(path);
         if ("/login.jsp".equals(path)||"/user/loginUser".equals(path)
-                ||"/index.html".equals(path)){
+                ||"/index.jsp".equals(path)){
 
            filterChain.doFilter(servletRequest,servletResponse);
         }else {

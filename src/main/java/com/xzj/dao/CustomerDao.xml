@@ -5,6 +5,28 @@
 
 <mapper namespace="com.xzj.dao.CustomerDao">
 
+    <select id="getNameId" resultType="com.xzj.domain.Customer">
+        select
+            id,
+            owner,
+            name,
+            website,
+            phone,
+            createBy,
+            createTime,
+            editBy,
+            editTime,
+            contactSummary,
+            nextContactTime,
+            description,
+            address
+            from tbl_customer
+            where name=#{customerName}
+
+    </select>
+
+
+
      <select id="getNameList" resultType="java.lang.String">
 
          select name from tbl_customer

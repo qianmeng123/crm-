@@ -55,4 +55,5 @@
     <mvc:resources mapping="/image/**" location="/image/"/>
     <mvc:resources mapping="/settings/**" location="/settings/"/>
     <mvc:resources mapping="/workbench/**" location="/workbench/"/>
+    <mvc:resources mapping="/ECharts/**" location="/ECharts/"/>
 </beans>
